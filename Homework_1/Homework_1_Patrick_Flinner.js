@@ -24,7 +24,7 @@ function lowerCase(phrase){
     return lower;
 }
 
-function sentenceCase(phrase){
+function sentenceCase(phrase,nouns){
     let sentence='';
     let cap=true;
 
@@ -86,15 +86,60 @@ function alternatingCase(phrase){
     return alternate;
 }
 
-function titleCase(){
+function titleCase(phrase, list){
+    let capitalize='';
+    let cap=true;
+
+    for(var i=0;i<phrase.length;i++){
+        if(phrase.charCodeAt(i)===32){
+            cap=true;
+            capitalize+=phrase.charAt(i);
+        }
+        else if(phrase.charCodeAt(i)>=97 && phrase.charCodeAt(i)<=122 && cap){
+            capitalize+=String.fromCharCode(phrase.charCodeAt(i)-32)
+            cap=false;
+        }
+        else{
+            capitalize+=phrase.charAt(i);
+            cap=false;
+        }
+    }
+    return capitalize;
+}
+
+function inverseCase(phrase){
+    let capitalize='';
+    let cap=true;
+
+    for(var i=0;i<phrase.length;i++){
+        if(phrase.charCodeAt(i)===32){
+            cap=true;
+            capitalize+=phrase.charAt(i);
+        }
+        else if(phrase.charCodeAt(i)>=65 && phrase.charCodeAt(i)<=90 && cap){
+            capitalize+=String.fromCharCode(phrase.charCodeAt(i)+32)
+            cap=false;
+        }
+        else if(phrase.charCodeAt(i)>=97 && phrase.charCodeAt(i)<=122 && !cap){
+            capitalize+=String.fromCharCode(phrase.charCodeAt(i)-32);
+            cap=false;
+        }
+        else{
+            capitalize+=phrase.charAt(i);
+            cap=false;
+        }
+    }
+    return capitalize;
+}
+
+function getCharacterFrequency(str){
+    var frequencyList={
+    
+    };
 
 }
 
-function getCharacterFrequency(){
-
-}
-
-function printCharacterFrequency(){
+function printCharacterFrequency(list){
 
 }
 
@@ -109,19 +154,19 @@ function runStringFunctions(){
     console.log( 'sentenceCase: ', sentenceCase(str, unconditionallyCapitalized) )
     console.log( 'capitalizedCase: ', capitalizedCase(str) )
     console.log( 'alternatingCase: ', alternatingCase(str) )
-    // console.log( 'titleCase: ', titleCase(str, lowercaseWords) )
-    // console.log( 'inverseCase: ', inverseCase(str) )
+    console.log( 'titleCase: ', titleCase(str, lowercaseWords) )
+    console.log( 'inverseCase: ', inverseCase(str) )
 } 
 
-// function runCharacterFunctions(){
+function runCharacterFunctions(){
 
-//     let str = 'Hello, World!'
+    let str = 'Hello, World!'
     
-//     let frequencyObj = getCharacterFrequency( str )
+    let frequencyObj = getCharacterFrequency( str )
     
-//     printCharacterFrequency( frequencyObj )
+    printCharacterFrequency( frequencyObj )
 
-// }
+}
 
 runStringFunctions();
-// runCharacterFunctions();
+runCharacterFunctions();
