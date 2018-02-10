@@ -134,7 +134,7 @@ function inverseCase(phrase){
 
 function getCharacterFrequency(str){
     var frequencyList={
-    
+        
     };
 
 }
