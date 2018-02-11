@@ -133,14 +133,65 @@ function inverseCase(phrase){
 }
 
 function getCharacterFrequency(str){
-    var frequencyList={
-        
+    let frequency={
+        character:'',
+        counter:0
     };
+
+    let frequencyList=[];
+
+    for(var i=0;i<str.length;i++){
+        if(frequencyList.length===0){
+            frequency.character=str.charAt(i);
+            frequency.counter=1;
+            frequencyList.push(frequency)
+        }
+        else{
+            let length=frequencyList.length;
+            for(var j=0;j<length;j++){
+                frequency=frequencyList[j];
+                let lower=32;
+                if(frequency.character.charCodeAt(0)<=122 && frequency.character.charCodeAt(0)>=97){
+                    lower=-32;
+                }
+                console.log(frequency.character.charCodeAt(0));
+                if(frequency.character.charCodeAt(0)===(str.charCodeAt(i))){
+                    console.log('if')
+                    frequency.counter+=1;
+                    frequencyList[j]=frequency;
+                    break;
+                }
+                else if(frequency.character.charCodeAt(0)===((str.charCodeAt(i)+lower))){
+                    frequency.counter+=1;
+                    frequencyList[j]=frequency;
+                    break;
+                }
+                if(j+1>=length){
+                    
+                    frequency.character=str.charAt(i);
+                    frequency.counter=1;
+                    console.log(frequency.character);
+                    frequencyList.push(frequency)
+                }
+            }
+        }
+    }
+
+    return frequencyList;
 
 }
 
 function printCharacterFrequency(list){
-
+   
+    for(var i=0;i<list.length;i++){
+        if(list[i].counter>1){
+            console.log('\''+list[i].character+'\' occurs ' +list[i].counter+' times');
+        }
+        else{
+            console.log('\''+list[i].character+'\' occurs ' +list[i].counter+' time');
+        }
+        
+    }
 }
 
 function runStringFunctions(){
@@ -160,7 +211,7 @@ function runStringFunctions(){
 
 function runCharacterFunctions(){
 
-    let str = 'Hello, World!'
+    let str = 'HeLlo, World!'
     
     let frequencyObj = getCharacterFrequency( str )
     
