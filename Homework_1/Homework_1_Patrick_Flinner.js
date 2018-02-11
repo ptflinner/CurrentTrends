@@ -149,29 +149,30 @@ function getCharacterFrequency(str){
         else{
             let length=frequencyList.length;
             for(var j=0;j<length;j++){
-                frequency=frequencyList[j];
-                let lower=32;
-                if(frequency.character.charCodeAt(0)<=122 && frequency.character.charCodeAt(0)>=97){
-                    lower=-32;
+                let lower=-32;
+                if(frequencyList[j].character.charCodeAt(0)<=122 && frequencyList[j].character.charCodeAt(0)>=97){
+                    lower= 32;
                 }
-                console.log(frequency.character.charCodeAt(0));
-                if(frequency.character.charCodeAt(0)===(str.charCodeAt(i))){
-                    console.log('if')
-                    frequency.counter+=1;
-                    frequencyList[j]=frequency;
+                
+                if(frequencyList[j].character.charCodeAt(0)===(str.charCodeAt(i))){
+                    
+                    frequencyList[j].counter+=1;
+                    j=length;
                     break;
                 }
-                else if(frequency.character.charCodeAt(0)===((str.charCodeAt(i)+lower))){
-                    frequency.counter+=1;
-                    frequencyList[j]=frequency;
+                else if(frequencyList[j].character.charCodeAt(0)===((str.charCodeAt(i)+lower))){
+                    
+                    frequencyList[j].counter+=1;
+                    j=length;
                     break;
                 }
                 if(j+1>=length){
+                    freq={
+                        character:str.charAt(i),
+                        counter:1
+                    }
                     
-                    frequency.character=str.charAt(i);
-                    frequency.counter=1;
-                    console.log(frequency.character);
-                    frequencyList.push(frequency)
+                    frequencyList.push(freq)
                 }
             }
         }
