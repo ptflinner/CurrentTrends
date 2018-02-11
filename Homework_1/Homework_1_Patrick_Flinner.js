@@ -182,6 +182,25 @@ function getCharacterFrequency(str){
 
 }
 
+function findWord(phrase,str,value){
+    for(var i=0;i<phrase.length;i++){
+        for(var j=0;j<str.length;j++){
+            if(phrase.charCodeAt(i)>=97 && phrase.charCodeAt(i)<=122){
+                if(phrase.charCodeAt(i)===str[j].charCodeAt(0) 
+                ||phrase.charCodeAt(i)===str[j].charCodeAt(0)+32){
+
+                }
+            }
+            else if(phrase.charCodeAt(i)>=65 && phrase.charCodeAt(i)<=90){
+                if(phrase.charCodeAt(i)===str[j].charCodeAt(0) 
+                ||phrase.charCodeAt(i)===str[j].charCodeAt(0)+32{
+            
+                }
+            }
+        }
+    }
+}
+
 function printCharacterFrequency(list){
    
     for(var i=0;i<list.length;i++){
