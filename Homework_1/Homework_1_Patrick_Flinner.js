@@ -1,8 +1,8 @@
 function upperCase(phrase){
     let upper='';
-    for(var i=0;i<phrase.length;i++){
-        if(phrase.charCodeAt(i)>=97 && phrase.charCodeAt(i)<=122){
-            upper+=String.fromCharCode(phrase.charCodeAt(i)-32);
+    for(i in phrase){
+        if(typeOfLetter(phrase.charAt(i))===0){
+            upper+=createUpper(phrase.charAt(i));
         }
         else{
             upper+=phrase.charAt(i);
@@ -13,9 +13,9 @@ function upperCase(phrase){
 
 function lowerCase(phrase){
     let lower='';
-    for(var i=0;i<phrase.length;i++){
-        if(phrase.charCodeAt(i)>=65 && phrase.charCodeAt(i)<=90){
-            lower+=String.fromCharCode(phrase.charCodeAt(i)+32);
+    for(i in phrase){
+        if(typeOfLetter(phrase.charAt(i))===1){
+            lower+=createLower(phrase.charAt(i));
         }
         else{
             lower+=phrase.charAt(i);
@@ -28,13 +28,13 @@ function sentenceCase(phrase,nouns){
     let sentence='';
     let cap=true;
 
-    for(var i=0;i<phrase.length;i++){
+    for(i in phrase){
         if(phrase.charCodeAt(i)===46){
             cap=true;
             sentence+=phrase.charAt(i);
         }
-        else if(phrase.charCodeAt(i)>=97 && phrase.charCodeAt(i)<=122 && cap){
-            sentence+=String.fromCharCode(phrase.charCodeAt(i)-32)
+        else if(typeOfLetter(phrase.charAt(i))===0 && cap){
+            sentence+=createLower(phrase.charAt(i));
             cap=false;
         }
         else{
@@ -51,13 +51,13 @@ function capitalizedCase(phrase){
     let capitalize='';
     let cap=true;
 
-    for(var i=0;i<phrase.length;i++){
+    for(i in phrase){
         if(phrase.charCodeAt(i)===32){
             cap=true;
             capitalize+=phrase.charAt(i);
         }
-        else if(phrase.charCodeAt(i)>=97 && phrase.charCodeAt(i)<=122 && cap){
-            capitalize+=String.fromCharCode(phrase.charCodeAt(i)-32)
+        else if(typeOfLetter(phrase.charAt(i))===0 && cap){
+            capitalize+=createUpper(phrase.charAt(i))
             cap=false;
         }
         else{
@@ -71,12 +71,12 @@ function capitalizedCase(phrase){
 function alternatingCase(phrase){
     let alternate='';
     let flip=true;
-    for(var i=0;i<phrase.length;i++){
-        if(phrase.charCodeAt(i)>=65 && phrase.charCodeAt(i)<=90 && flip){
-            alternate+=String.fromCharCode(phrase.charCodeAt(i)+32)
+    for(i in phrase){
+        if(typeOfLetter(phrase.charAt(i))===1 && flip){
+            alternate+=createLower(phrase.charAt(i));
         }
-        else if(phrase.charCodeAt(i)>=97 && phrase.charCodeAt(i)<=122 && !flip){
-            alternate+=String.fromCharCode(phrase.charCodeAt(i)-32);
+        else if(typeOfLetter(phrase.charAt(i))===0 && !flip){
+            alternate+=createUpper(phrase.charAt(i));
         }
         else{
             alternate+=phrase.charAt(i);
@@ -90,12 +90,12 @@ function titleCase(phrase, list){
     let capitalize='';
     let cap=true;
 
-    for(var i=0;i<phrase.length;i++){
+    for(i in phrase){
         if(phrase.charCodeAt(i)===32){
             cap=true;
             capitalize+=phrase.charAt(i);
         }
-        else if(phrase.charCodeAt(i)>=97 && phrase.charCodeAt(i)<=122 && cap){
+        else if(typeOfLetter(phrase.charAt(i))===0 && cap){
             capitalize+=String.fromCharCode(phrase.charCodeAt(i)-32)
             cap=false;
         }
@@ -111,16 +111,16 @@ function inverseCase(phrase){
     let capitalize='';
     let cap=true;
 
-    for(var i=0;i<phrase.length;i++){
+    for(i in phrase){
         if(phrase.charCodeAt(i)===32){
             cap=true;
             capitalize+=phrase.charAt(i);
         }
-        else if(phrase.charCodeAt(i)>=65 && phrase.charCodeAt(i)<=90 && cap){
+        else if(typeOfLetter(phrase.charAt(i))===1 && cap){
             capitalize+=String.fromCharCode(phrase.charCodeAt(i)+32)
             cap=false;
         }
-        else if(phrase.charCodeAt(i)>=97 && phrase.charCodeAt(i)<=122 && !cap){
+        else if(typeOfLetter(phrase.charAt(i))===0 && !cap){
             capitalize+=String.fromCharCode(phrase.charCodeAt(i)-32);
             cap=false;
         }
@@ -150,7 +150,7 @@ function getCharacterFrequency(str){
             let length=frequencyList.length;
             for(var j=0;j<length;j++){
                 let lower=-32;
-                if(frequencyList[j].character.charCodeAt(0)<=122 && frequencyList[j].character.charCodeAt(0)>=97){
+                if(typeOfLetter(frequencyList[j].character)===0){
                     lower= 32;
                 }
                 
@@ -182,37 +182,64 @@ function getCharacterFrequency(str){
 
 }
 
+function printCharacterFrequency(list){
+    
+     for(var i=0;i<list.length;i++){
+         if(list[i].counter>1){
+             console.log('\''+list[i].character+'\' occurs ' +list[i].counter+' times');
+         }
+         else{
+             console.log('\''+list[i].character+'\' occurs ' +list[i].counter+' time');
+         }
+         
+     }
+}
+
 function findWord(phrase,str,value){
     for(var i=0;i<phrase.length;i++){
         for(var j=0;j<str.length;j++){
-            if(phrase.charCodeAt(i)>=97 && phrase.charCodeAt(i)<=122){
+            if(typeOfLetter(phrase.charAt(i))===0){
                 if(phrase.charCodeAt(i)===str[j].charCodeAt(0) 
                 ||phrase.charCodeAt(i)===str[j].charCodeAt(0)+32){
+                    for(x=0;x<str[j].length;x++){
+                        if(phrase.charCodeAt(x)){
 
+                        }
+                    }
                 }
             }
-            else if(phrase.charCodeAt(i)>=65 && phrase.charCodeAt(i)<=90){
+            else if(typeOfLetter(phrase.charAt(i))===1){
                 if(phrase.charCodeAt(i)===str[j].charCodeAt(0) 
-                ||phrase.charCodeAt(i)===str[j].charCodeAt(0)+32{
-            
+                ||phrase.charCodeAt(i)===str[j].charCodeAt(0)+32){
+                    for(x=0;x<str[j].length;x++){
+                        
+                    }
                 }
             }
         }
     }
 }
 
-function printCharacterFrequency(list){
-   
-    for(var i=0;i<list.length;i++){
-        if(list[i].counter>1){
-            console.log('\''+list[i].character+'\' occurs ' +list[i].counter+' times');
-        }
-        else{
-            console.log('\''+list[i].character+'\' occurs ' +list[i].counter+' time');
-        }
-        
+function typeOfLetter(char){
+    if(char.charCodeAt(0)>=97 && char.charCodeAt(0)<=122){
+        return 0;
     }
+    else if (char.charCodeAt(0)>=65 && char.charCodeAt(0)<=90){
+        return 1;
+    }
+    return 2;
 }
+
+function createLower(char){
+    let ch=String.fromCharCode(char.charCodeAt(0)+32)
+    return ch;
+}
+
+function createUpper(char){
+    let ch=String.fromCharCode(char.charCodeAt(0)-32)
+    return ch;
+}
+
 
 function runStringFunctions(){
     let str = 'I watched the storm, so beautiful yet terrific. The face of the moon was in shadow.'
