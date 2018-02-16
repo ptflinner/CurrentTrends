@@ -2,7 +2,7 @@
 //304607711
 //Homework 1
 
-function upperCase(phrase){
+let upperCase=(phrase)=>{
     let upper='';
     for(i in phrase){
         
@@ -18,7 +18,7 @@ function upperCase(phrase){
     return upper;
 }
 
-function lowerCase(phrase){
+let lowerCase=(phrase)=>{
     let lower='';
     for(i in phrase){
 
@@ -34,7 +34,7 @@ function lowerCase(phrase){
     return lower;
 }
 
-function sentenceCase(phrase,nouns){
+let sentenceCase=(phrase,nouns)=>{
     let sentence='';
     let cap=true;
 
@@ -61,7 +61,7 @@ function sentenceCase(phrase,nouns){
 }
 
 /* Capitalizes the first letter in a word */
-function capitalizedCase(phrase){
+let capitalizedCase=(phrase)=>{
     let capitalize='';
     let cap=true;
 
@@ -83,7 +83,7 @@ function capitalizedCase(phrase){
 }
 
 /*alternates the letter that is capitalized*/
-function alternatingCase(phrase){
+let alternatingCase=(phrase)=>{
     let alternate='';
     let flip=true;
     for(i in phrase){
@@ -102,7 +102,7 @@ function alternatingCase(phrase){
 }
 
 /*Capitalizes every word that is important. List determines what is not important*/
-function titleCase(phrase, list){
+let titleCase=(phrase, list)=>{
     let capitalize='';
     let cap=true;
 
@@ -128,7 +128,7 @@ function titleCase(phrase, list){
 }
 
 /*Start of every word is lowercase and the rest uppercase*/
-function inverseCase(phrase){
+let inverseCase=(phrase)=>{
     let capitalize='';
     let cap=true;
 
@@ -154,7 +154,7 @@ function inverseCase(phrase){
 }
 
 /*Creates a list of objects that are a letter and how many times it occurs*/
-function getCharacterFrequency(str){
+let getCharacterFrequency=(str)=>{
     //Object
     let frequency={
         character:'',
@@ -209,7 +209,7 @@ function getCharacterFrequency(str){
 }
 
 //Prints the object used in getCharacterFrequency
-function printCharacterFrequency(list){
+let printCharacterFrequency=(list)=>{
     
      for(i in list){
          if(list[i].counter>1){
@@ -223,7 +223,7 @@ function printCharacterFrequency(list){
 }
 
 //Uses regular expressions to replace words in a sentence. Will only replace whole words. Ignores case sensitivity. 
-function replaceWord(phrase,list){
+let replaceWord=(phrase,list)=>{
     for(i in list){
         let replace=list[i];
         let search=lowerCase(list[i]);
@@ -235,7 +235,7 @@ function replaceWord(phrase,list){
 }
 
 //Returns a value depending on if a letter is uppercase, lowercase, or not a letter
-function typeOfLetter(char){
+let typeOfLetter=(char)=>{
     //Lower
     if(char.charCodeAt(0)>=97 && char.charCodeAt(0)<=122){
         return 0;
@@ -250,13 +250,13 @@ function typeOfLetter(char){
 }
 
 //Returns a lowercase letter
-function createLower(char){
+let createLower=(char)=>{
     let ch=String.fromCharCode(char.charCodeAt(0)+32)
     return ch;
 }
 
 //Returns an uppercase letter
-function createUpper(char){
+let createUpper=(char)=>{
     let ch=String.fromCharCode(char.charCodeAt(0)-32)
     return ch;
 }
