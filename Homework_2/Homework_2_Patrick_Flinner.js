@@ -1,6 +1,6 @@
 class Groups{
     constructor(group){
-        if(group.length>1)
+        if(group!=null)
             this.group=group;
         else
             this.group=[];
@@ -8,8 +8,12 @@ class Groups{
     addGroup(group){
         this.group.push(group);
     }
-    removeGroup(groupName0){
-        
+    removeGroup(groupName){
+        this.group.forEach(element =>{
+            if(groupName===element.name){
+                this.group=this.group.slice(i,1);
+            }
+        })
     }
     addMember(groupName,memberName){
 
@@ -18,30 +22,29 @@ class Groups{
 
     }
     print(){
-        for(i in this.group){
-            console.log(i.name+'\n');
-            console.log(i.leader+'\n');
-            for(j in this.group){
-                if(j==0){
-                    console.log(j);
-                }
-                else{
-                    console.log('|'+j);
-                }
+        this.group.forEach(element => {
+            let members='';
+            console.log(element.name);
+            console.log("Leader: "+element.leader);
+            for(let i in element.members){
+                members+=i+' | ';
             }
-        }
+            console.log(members.slice(0,-2)+'\n');
+        });
+       
     }
 }
 
 const groups = new Groups()
-        groups.addGroup({
-          name: 'Justice League',
-          leader: 'Wonder Woman',
-          members: ['Batman', 'Superman', 'Spiderman']
-        })
-        groups.addGroup({
-          name: 'Avengers',
-          leader: 'Iron Man',
-          members: ['Hulk', 'Thor', 'Captain America']
-        })
-        groups.print
+groups.addGroup({
+    name: 'Justice League',
+    leader: 'Wonder Woman',
+    members: ['Batman', 'Superman', 'Spiderman']
+})
+groups.addGroup({
+    name: 'Avengers',
+    leader: 'Iron Man',
+    members: ['Hulk', 'Thor', 'Captain America']
+})
+groups.removeGroup('Avengers');
+groups.print()
