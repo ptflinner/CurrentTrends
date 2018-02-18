@@ -27,7 +27,7 @@ class Groups{
             console.log(element.name);
             console.log("Leader: "+element.leader);
             for(let i in element.members){
-                members+=i+' | ';
+                members+=element.members[i]+' | ';
             }
             console.log(members.slice(0,-2)+'\n');
         });
@@ -46,5 +46,5 @@ groups.addGroup({
     leader: 'Iron Man',
     members: ['Hulk', 'Thor', 'Captain America']
 })
-groups.removeGroup('Avengers');
+//groups.removeGroup('Avengers');
 groups.print()
