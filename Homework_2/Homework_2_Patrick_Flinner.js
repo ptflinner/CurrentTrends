@@ -66,3 +66,73 @@ groups.print()
 
 groups.removeMember('Justice League', 'spiderMan')
 groups.print()
+
+
+/*------------ DESTRUCTURING -----------*/
+
+const displayName=(name)=>{
+    let {first,last}=name
+    let phrase=`${first!=null ?  `${first}` : 'No first name'} ${last ? `${last}` : '{No last name}'}`;
+    console.log(phrase);
+}
+
+const person = {
+    first: 'Elon',
+    last: 'Musk',
+    twitter: '@elonmusk',
+    company: 'Space X'
+}
+displayName(person)
+
+
+const combineName=(person,name,key)=>{
+    let combo='';
+    name.forEach(element=>{
+        let {[element]:value}=person;
+        delete person[element];
+        combo+=`${value ? `${value}` :''}`+' ';
+    })
+    person[key]=combo.slice(0,-1);
+    return person;
+}
+
+let person1=(combineName(person, ['first', 'last'], 'name'));
+
+console.log(person1);
+
+const createObject=(array)=>{
+    let people={}
+    let counter=0;
+    array.forEach(element=>{
+        people[counter]={};
+        element.forEach(innerElement=>{
+            people[counter][innerElement.key]=innerElement.value;
+        })
+        counter++;
+    })
+    return people;
+}
+const people = [[{
+    key: 'name',
+    value: 'Elon Musk'
+}, {
+    key: 'twitter',
+    value: '@elonmusk'
+}, {
+    key: 'company',
+    value: 'Space X'
+}],
+[{
+    key: 'name',
+    value: 'Tim Cook'
+}, {
+    key: 'twitter',
+    value: '@tim_cook'
+}, {
+    key: 'company',
+    value: 'Apple'
+}]]
+
+obj=createObject(people)
+console.log();
+console.log(obj);
