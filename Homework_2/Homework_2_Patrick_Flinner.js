@@ -9,17 +9,26 @@ class Groups{
         this.group.push(group);
     }
     removeGroup(groupName){
-        this.group.forEach(element =>{
-            if(groupName===element.name){
-                this.group=this.group.slice(i,1);
-            }
+        let index=this.group.findIndex((element)=>{
+            return element.name===groupName;
         })
+       
+        this.group.splice(index,1);
     }
     addMember(groupName,memberName){
-
+        let index=this.group.findIndex((element)=>{
+            return element.name===groupName;
+        })
+        this.group[index].members.push(memberName);
     }
     removeMember(groupName,memberName){
-
+        let index=this.group.findIndex((element)=>{
+            return element.name==groupName;
+        })
+        let memberIndex=this.group[index].members.findIndex(element=>{
+            return element===memberName
+        })
+        this.group[index].members.splice(memberIndex,1);
     }
     print(){
         this.group.forEach(element => {
@@ -46,5 +55,14 @@ groups.addGroup({
     leader: 'Iron Man',
     members: ['Hulk', 'Thor', 'Captain America']
 })
-//groups.removeGroup('Avengers');
+
+groups.print()
+
+groups.addMember('Justice League', 'Aqua Man')
+groups.print()
+
+groups.removeGroup('avengers')
+groups.print()
+
+groups.removeMember('Justice League', 'spiderMan')
 groups.print()
