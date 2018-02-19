@@ -1,3 +1,8 @@
+//Patrick Flinner
+//304607711
+//Homework 2
+//Due: February 21, 2018
+
 class Groups{
     constructor(group){
         if(group!=null)
@@ -5,40 +10,45 @@ class Groups{
         else
             this.group=[];
     }
+
     addGroup(group){
         this.group.push(group);
     }
+
     removeGroup(groupName){
         let index=this.group.findIndex((element)=>{
-            return element.name===groupName;
+            return element.name.toUpperCase()===groupName.toUpperCase();
         })
-       
-        this.group.splice(index,1);
+        if(index!=-1)
+            this.group.splice(index,1);
     }
+
     addMember(groupName,memberName){
+        //Finds the index of the group and adds the member to the array
         let index=this.group.findIndex((element)=>{
             return element.name===groupName;
         })
         this.group[index].members.push(memberName);
     }
+
     removeMember(groupName,memberName){
+        //finds the index of the group and member and removes the member
         let index=this.group.findIndex((element)=>{
             return element.name==groupName;
         })
         let memberIndex=this.group[index].members.findIndex(element=>{
-            return element===memberName
+            return element.toUpperCase()===memberName.toUpperCase();
         })
-        this.group[index].members.splice(memberIndex,1);
+        if(index!=-1 && memberIndex!=-1)
+            this.group[index].members.splice(memberIndex,1);
     }
+
     print(){
         this.group.forEach(element => {
-            let members='';
             console.log(element.name);
             console.log("Leader: "+element.leader);
-            for(let i in element.members){
-                members+=element.members[i]+' | ';
-            }
-            console.log(members.slice(0,-2)+'\n');
+            console.log(element.members.join(' | '))
+            console.log();
         });
        
     }
@@ -69,7 +79,10 @@ groups.print()
 
 
 /*------------ DESTRUCTURING -----------*/
+console.log('/*------------ DESTRUCTURING -----------*/');
 
+//Displays a persons name if the fields exist
+//Will say do not have a *blank* name if the field is missing
 const displayName=(name)=>{
     let {first,last}=name
     let phrase=`${first!=null ?  `${first}` : 'No first name'} ${last ? `${last}` : '{No last name}'}`;
@@ -87,6 +100,9 @@ displayName(person)
 
 const combineName=(person,name,key)=>{
     let combo='';
+    //Gets the value from the fields within the person object
+    //Deletes the fields after getting their values
+    //and combines them into one name before adding them as one field
     name.forEach(element=>{
         let {[element]:value}=person;
         delete person[element];
@@ -103,6 +119,8 @@ console.log(person1);
 const createObject=(array)=>{
     let people={}
     let counter=0;
+    //Creates an object for each element in the array
+    //Places the object in the currect index
     array.forEach(element=>{
         people[counter]={};
         element.forEach(innerElement=>{
