@@ -1,9 +1,34 @@
-const getTimes=(argument,callback)=>{
+//Patrick Flinner
+//Lab_1
+//304607711
+//Due Date: February 22, 2018
 
+const getTimes=(argument,callback)=>{
+    const http=require('http');
+    const before=new Date().getMilliseconds();
+
+    http.get(argument,(res)=>{
+        callback(`${before}`,`${argument}`);
+    })
+    
+    
 }
 
-const orderTimes=(sample)=>{
-
+const orderTimes=(urlList)=>{
+    let array=[];
+    urlList.forEach(url => {
+        let obj={};
+        getTimes(url,(time,argument)=>{
+            obj['url']=argument;
+            obj['time']=(new Date().getMilliseconds()-time);
+            array.push(obj);
+        })
+    });
+    
+    setTimeout(()=>{
+        console.log(array);
+    },2000)
+    
 }
 
 const sample = [
@@ -16,7 +41,48 @@ const sample = [
 orderTimes(sample);
 
 const validURL=(sample)=>{
-    
+    let obj={success:[],error:[]};
+    const promises = sample.map((url) => {
+        return validate(url)
+    })
+
+    Promise.all(promises)
+        .then((results) => {
+           results.forEach(element=>{
+               let {status,url}=element;
+               if(`${status}`==='success'){
+                    obj.success.push(`${url}`);
+               }
+               else if(`${status}`==='error'){
+                    obj.error.push(`${url}`);
+               }
+           })
+           console.log(obj);
+        })
+        .catch(error => {
+            console.log('error', error)
+        })
 }   
 
-validURLs(sample);
+const validate=(url)=>{
+    return new Promise((resolve,reject) => {
+        const http=require('http');
+
+        http.get(url,(res)=>{
+           if(res.statusCode>=400 && res.statusCode<600){
+               let obj={status:'error',url:url};
+               return resolve(obj)
+           }
+           else if(res.statusCode>=200 && res.statusCode<400){
+                let obj={status:'success',url:url};
+                return resolve(obj)
+           }
+           else 
+           {
+               return reject
+           }
+        })
+    })
+}
+
+validURL(sample);

@@ -26,9 +26,10 @@ class Groups{
     addMember(groupName,memberName){
         //Finds the index of the group and adds the member to the array
         let index=this.group.findIndex((element)=>{
-            return element.name===groupName;
+            return element.name.toUpperCase()===groupName.toUpperCase();
         })
-        this.group[index].members.push(memberName);
+        if(index!=-1)
+            this.group[index].members.push(memberName);
     }
 
     removeMember(groupName,memberName){
