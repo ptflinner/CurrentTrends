@@ -24,7 +24,7 @@ const orderTimes=(urlList)=>{
             obj['time']=(new Date().getMilliseconds()-time);
             counter++;
             array.push(obj);
-            if(counter==4){
+            if(counter==urlList.length){
                 console.log(array);
             }
         })
@@ -86,5 +86,5 @@ const validate=(url)=>{
     })
 }
 
-validURL(sample);
 orderTimes(sample);
+validURL(sample);
