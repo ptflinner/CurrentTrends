@@ -16,18 +16,19 @@ const getTimes=(argument,callback)=>{
 
 const orderTimes=(urlList)=>{
     let array=[];
+    let counter=0;
     urlList.forEach(url => {
         let obj={};
         getTimes(url,(time,argument)=>{
             obj['url']=argument;
             obj['time']=(new Date().getMilliseconds()-time);
+            counter++;
             array.push(obj);
+            if(counter==4){
+                console.log(array);
+            }
         })
     });
-    
-    setTimeout(()=>{
-        console.log(array);
-    },2000)
     
 }
 
@@ -38,7 +39,7 @@ const sample = [
     'http://google.com/nothing'
 ]
 
-orderTimes(sample);
+
 
 const validURL=(sample)=>{
     let obj={success:[],error:[]};
@@ -86,3 +87,4 @@ const validate=(url)=>{
 }
 
 validURL(sample);
+orderTimes(sample);
