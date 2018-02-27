@@ -47,8 +47,9 @@ const hashMessage=(message)=>{
         if(leadingZero(digest)){
             loop=false;
         }
-        numLoops++;
-    }
+        else{
+            numLoops++;
+        }}
     message+=numLoops;
     console.log(`The '${hashingAlgorithm}' digest of '${message}' is: ${digest}`);
 }
