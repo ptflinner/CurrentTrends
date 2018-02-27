@@ -1,3 +1,8 @@
+//Patrick Flinner
+//Lab_2
+//304607711
+//Due Date: February 28, 2018
+
 const crypto =require('crypto')
 const http=require('http')
 const url='http://albertcervantes.com/cs4220/messages.json'
@@ -8,6 +13,7 @@ const hashingAlgorithm='sha256'
 const fs = require('fs')    
 const path = require('path')
 
+//Creates the hash
 const cryptoHash=(message)=>{
 
     const hash=crypto.createHash(hashingAlgorithm)
@@ -17,6 +23,7 @@ const cryptoHash=(message)=>{
     return digest
 }
 
+//Checks if the hash has 3 leading zeroes
 const leadingZero=(hashed)=>{
     let count=0;
     let hash=hashed.toString()
@@ -38,6 +45,7 @@ const leadingZero=(hashed)=>{
     }
 }
 
+//Creates the message that has the hash with 3 leading zeroes
 const hashMessage=(message)=>{
     let numLoops=0;
     let loop=true;
@@ -54,6 +62,8 @@ const hashMessage=(message)=>{
     console.log(`The '${hashingAlgorithm}' digest of '${message}' is: ${digest}`);
 }
 
+//Generates message signatures
+//Not used
 const generateSignature=(message)=>{
     const
     // Read the private key
@@ -70,6 +80,7 @@ const generateSignature=(message)=>{
     const signature = sign.sign(privateKey, 'hex')
 }
 
+//Verifies that the signature matches the message
 const verifySignature=(message,signature)=>{
     const
     // Load the public key
@@ -88,6 +99,7 @@ const verifySignature=(message,signature)=>{
     console.log( `${isValidSignature} - ${message}`)
 }
 
+//Retrieves JSON from website
 const retrieveJson=(callback)=>{
     http.get(url, (res) => {
         res.setEncoding('utf8');
@@ -100,6 +112,8 @@ const retrieveJson=(callback)=>{
          
     });
 }
+
+//Displays if the signatures are valid
 const signatures=()=>{
     retrieveJson((json)=>{
         json.forEach(element => {
@@ -108,5 +122,6 @@ const signatures=()=>{
         });
     })
 }
+
 hashMessage('Hello, World!')
 signatures()
