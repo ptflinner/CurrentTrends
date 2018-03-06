@@ -8,8 +8,17 @@ const http=require('http')
 const url='http://albertcervantes.com/cs4220/messages.json'
 const hashes=crypto.getHashes()
 const hashingAlgorithm='sha256'
-    
-    // For reading keys and writing files
+const publicKey=`-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0ymlIhe8lJm19xNxIViM
+P0ox0lQl8waBRhpT62KpDgWZgTUqYLh+77J7lAra9vIre5A6Fd9Ac3czGH83F27Z
+cUZdIT2HYRbi8gl5EkkUtLvxi+LX2JI+SycOXvT94/lHvJC9aZM+sgZidmywh2zX
+aFVsQnGsanvOhrSbW6LYaPkvnWm0tdW+8RU8cD7q0K7F0n/1i2V8q0mI0z7/E29x
+wVb/RtWK3gagC0tEjdipYXovkQitxEgOhDUsmp4kRM1aYasFtIaayND3wuPzGMfr
+8GbtsP/iBoz4hwOqs++gjg36cXxO68P7HChUMiVd5x9DvN2X+NV1RkY4PusciJ8Z
+kQIDAQAB
+-----END PUBLIC KEY-----`
+
+// For reading keys and writing files
 const fs = require('fs')    
 const path = require('path')
 
@@ -82,11 +91,6 @@ const generateSignature=(message)=>{
 
 //Verifies that the signature matches the message
 const verifySignature=(message,signature)=>{
-    const
-    // Load the public key
-    fullPublicKeyPath = path.resolve('keys', 'public_key.pem'),
-    publicKey = fs.readFileSync(fullPublicKeyPath, 'utf8'),
-
     // Get a new Verify object (Note: we don't use 'new')
     verify = crypto.createVerify('SHA256')
 
