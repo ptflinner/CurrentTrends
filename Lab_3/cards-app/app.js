@@ -7,7 +7,6 @@ const
     inquirer = require('inquirer')
 let deck_id;
 const draw = (shuffle, n = 25) => {
-    console.log(shuffle)
     cards.deck(shuffle)
         .then(deck => cards.draw(deck.deck_id, n))
         .then(result => {
@@ -34,12 +33,10 @@ const discardPrompt = (result) => {
         {name:hand[3].value},
         {name:hand[4].value},],        // implement choices array - look at the inquirer documentation,
         validate: (input) => {
-            if(input>4){
-                return false
-            }
-            else{
+            if(input.length<=4){
                 return true
             }
+           
         }  
     }])
 }
