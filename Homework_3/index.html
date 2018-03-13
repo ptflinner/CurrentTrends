@@ -24,7 +24,12 @@
                 {{category}}
             </option>
         </select>
-        <button v-on:click="getCategoryFact">Get a random {{selectedCategory}} Fact!</button>
+        <button v-if="selectedCategory != 'all'" v-on:click="getCategoryFact">Get a random {{selectedCategory}} fact!</button>
+        <button v-else v-on:click="getCategoryFact">Get a random fact!</button>
+        <p>
+                <input v-model="query" placeholder="Search for Facts">
+                <button v-on:click="searchFact">Search for Facts with {{query}}</button>
+        </p>
         <p v-show="isFetchingAFact">Fetching...</p>
         <h3 v-show="!isFetchingAFact">{{currentFact}}</h3>
 

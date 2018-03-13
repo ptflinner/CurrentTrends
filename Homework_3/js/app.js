@@ -8,7 +8,9 @@ let dad = new Vue({
         currentFact: '',
         previousFacts: [],
         categories:[],
-        selectedCategory:'',
+        selectedCategory:'all',
+        query: '',
+        queries:[],
         isFetchingAFact: false
     },
 
@@ -62,9 +64,9 @@ let dad = new Vue({
             })
         },
 
-        searchCategory: function(category){
+        searchFact: function(){
             let viewModel=this
-            axios.get('https://api.chucknorris.io/jokes/random?category='+selectedCategory,{
+            axios.get('https://api.chucknorris.io/jokes/search?query='+viewModel.query,{
                 headers:{
                     Accept: 'application/json'
                 }
@@ -72,11 +74,11 @@ let dad = new Vue({
             .then(function(response){
                 console.log(response)
                 
-                if (viewModel.currentFact)
-                viewModel.previousFacts.push(viewModel.currentFact)
-
-        
-                viewModel.currentFact = response.data.value
+                if (viewModel.currentFact){
+                    viewModel.queries.push(viewModel.query)
+                    viewModel.previousFacts.push(viewModel.currentFact)
+                }
+                viewModel.currentFact = response.data.value   
             })
         }
     },
