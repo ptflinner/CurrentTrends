@@ -26,17 +26,29 @@
         </select>
         <button v-if="selectedCategory != 'all'" v-on:click="getCategoryFact">Get a random {{selectedCategory}} fact!</button>
         <button v-else v-on:click="getCategoryFact">Get a random fact!</button>
-        <p>
+        
+            <p>
                 <input v-model="query" placeholder="Search for Facts">
                 <button v-on:click="searchFact">Search for Facts with {{query}}</button>
-        </p>
-        <p v-show="isFetchingAFact">Fetching...</p>
-        <h3 v-show="!isFetchingAFact">{{currentFact}}</h3>
-
-        <p v-if="previousFacts.length">Previous Facts</p>
-        <ol>
-            <li v-for="fact in previousFacts">{{fact}}</li>
-        </ol>
+            </p>
+        <div v-show="showCategory">
+            
+            <p v-show="isFetchingAFact">Fetching...</p>
+            <h3 v-show="!isFetchingAFact">{{currentFact}}</h3>  
+        
+            <p v-if="previousFacts.length">Previous Facts</p>
+            <ol>
+                <li v-for="fact in previousFacts">{{fact}}</li>
+            </ol>
+        </div>
+        <div v-show="showSearched">
+            <p>Searched Facts</p>
+            <h5 v-if="queries.length">Past Queries: {{queries.toString()}}</h5>
+            
+            <ol>
+                <li v-for="fact in searchedFacts">{{fact}}</li>
+            </ol>
+        </div>
     </div>
 
     <script type="text/javascript" src="https://unpkg.com/vue"></script>

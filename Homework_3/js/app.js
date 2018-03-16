@@ -7,11 +7,14 @@ let dad = new Vue({
         appName: 'Chuck Norris Facts',
         currentFact: '',
         previousFacts: [],
+        searchedFacts:[],
         categories:[],
         selectedCategory:'all',
         query: '',
         queries:[],
-        isFetchingAFact: false
+        isFetchingAFact: false,
+        showCategory:true,
+        showSearched:false
     },
 
     // Methods that may be called on our vue object
@@ -21,10 +24,18 @@ let dad = new Vue({
         getCategoryFact: function(){
             
             this.isFetchingAFact = true
-
+            this.showCategory=true
+            this.showSearched=false
             let viewModel = this
+            let url=''
 
-            axios.get('https://api.chucknorris.io/jokes/random?category='+viewModel.selectedCategory,{
+            if(viewModel.selectedCategory=='all'){
+                url='https://api.chucknorris.io/jokes/random'
+            }
+            else{
+                url='https://api.chucknorris.io/jokes/random?category='+viewModel.selectedCategory
+            }
+            axios.get(url,{
                 headers: {
                     Accept: 'application/json'
                 }
@@ -40,6 +51,7 @@ let dad = new Vue({
 
             
                 viewModel.currentFact = response.data.value
+                
             })
             .catch(function(err){
                 alert(err)
@@ -62,9 +74,12 @@ let dad = new Vue({
                     viewModel.categories.push(element)
                 })
             })
+            
         },
 
         searchFact: function(){
+            this.showCategory=false
+            this.showSearched=true
             let viewModel=this
             axios.get('https://api.chucknorris.io/jokes/search?query='+viewModel.query,{
                 headers:{
@@ -74,11 +89,12 @@ let dad = new Vue({
             .then(function(response){
                 console.log(response)
                 
-                if (viewModel.currentFact){
-                    viewModel.queries.push(viewModel.query)
-                    viewModel.previousFacts.push(viewModel.currentFact)
-                }
-                viewModel.currentFact = response.data.value   
+                viewModel.queries.push(viewModel.query)
+                viewModel.searchedFacts=[]
+                response.data.result.forEach(fact=>{
+                    viewModel.searchedFacts.push(fact.value)
+                })
+                console.log(viewModel.queries)
             })
         }
     },
