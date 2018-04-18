@@ -16,12 +16,20 @@ module.exports = (server) => {
         socket.on('join-user', userName => {
             const user = {
                 id: socket.id,
-                name: userName
+                name: userName,
+                avatar: `https://robohash.org/${userName}`
             }
+            
+            const index=users.findIndex(user=>{
+                return user.name==userName
+            })
 
-            users.push(user)
-
-            io.emit('successful-join', user)
+            if(index==-1){
+                users.push(user)
+                io.emit('successful-join', user)
+            }
+            else
+                io.emit('failed-join',userName)
         })
 
         socket.on('send-message', data => {
@@ -42,5 +50,6 @@ module.exports = (server) => {
 
             io.emit('refresh-users', users)
         })
+
     })
 }

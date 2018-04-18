@@ -2,7 +2,7 @@
 const chatComponent = {
     template: ` <div class="chat-box">
                    <p v-for="data in content">
-                       <img src="https://robohash.org/userName?set=set3" class="circle" width="30px">
+                       <img v-bind:src=data.user.avatar class="circle" width="30px">
                        <span><strong>{{data.user.name}}</strong> <small>{{data.date}}</small><span>
                        <br />
                        {{data.message}}
@@ -17,7 +17,7 @@ const usersComponent = {
                    <h6>Active Users ({{users.length}})</h6>
                    <ul v-for="user in users">
                        <li>
-                            <img src="https://robohash.org/userName?set=set3" class="circle" width="30px">
+                            <img v-bind:src=user.avatar class="circle" width="30px">
                             <span>{{user.name}}</span>
                        </li>
                        <hr>
@@ -27,6 +27,16 @@ const usersComponent = {
 }
 
 // Welcome Component
+const welcomeComponent={
+    template: `<div class="welcome-box">
+                    <br>
+                    <h3>Welcome</h3>
+                        <img v-bind:src=user.avatar class="circle" width="90px">
+                    <h4>{{user.name}}</h4>
+                    <hr>
+                </div>`,
+    props: ['user']
+}
 
 
 const socket = io()
@@ -38,7 +48,9 @@ const app = new Vue({
         user: {},
         users: [],
         message: '',
-        messages: []
+        messages: [],
+        fail:false,
+        failed:''
     },
     methods: {
         joinUser: function () {
@@ -56,7 +68,8 @@ const app = new Vue({
     },
     components: {
         'users-component': usersComponent,
-        'chat-component': chatComponent
+        'chat-component': chatComponent,
+        'welcome-component': welcomeComponent
     }
 })
 
@@ -76,7 +89,7 @@ socket.on('successful-join', user => {
         app.user = user
         app.loggedIn = true
     }
-
+    app.fail=true
     app.users.push(user)
 })
 
@@ -84,4 +97,12 @@ socket.on('successful-message', content => {
     // clear the message after success send
     app.message = ''
     app.messages.push(content)
+})
+
+socket.on('failed-join',content=>{
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    app.failed=`\n *The username, ${content}, is already in use`
+    app.fail=true
 })
