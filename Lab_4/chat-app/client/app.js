@@ -1,3 +1,7 @@
+//Patrick Flinner
+//Lab 4
+//April 19, 2018
+
 // Chat Component
 const chatComponent = {
     template: ` <div class="chat-box">

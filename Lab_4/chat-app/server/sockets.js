@@ -1,3 +1,7 @@
+//Patrick Flinner
+//Lab 4
+//April 19, 2018
+
 module.exports = (server) => {
     const
         io = require('socket.io')(server),
