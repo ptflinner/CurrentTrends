@@ -25,7 +25,7 @@ module.exports = (server) => {
             }
             
             const index=users.findIndex(user=>{
-                return user.name==userName
+                return user.name.toUpperCase()==userName.toUpperCase()
             })
 
             if(index==-1){
